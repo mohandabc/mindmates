@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "395697803399",
+    "firebase_url": "https://mind-mates.firebaseio.com",
+    "project_id": "mind-mates",
+    "storage_bucket": "mind-mates.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395697803399:android:6fd4d1ddbc1802bd36e822",
+        "android_client_info": {
+          "package_name": "com.mohandab.mindmates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395697803399-c0q3abcv9s5aaedhos4p8a5jcd7hjplq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIPqMovE351QREroduOQyd4v2t4k_jBqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395697803399-c0q3abcv9s5aaedhos4p8a5jcd7hjplq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
