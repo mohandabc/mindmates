@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mindmates/services/auth.dart';
+import 'package:mindmates/shered/constants.dart';
+import 'package:mindmates/shered/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -12,9 +14,12 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final Auth_service _auth = Auth_service();
   String _email = '', _password = '';
+  String _error = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
+    if (loading) return Loading();
     return Scaffold(
       backgroundColor: Colors.brown,
       appBar: AppBar(
@@ -38,6 +43,7 @@ class _SignInState extends State<SignIn> {
               children: <Widget>[
                 SizedBox(height: 20),
                 TextFormField(
+                  decoration: inputFieldDeco.copyWith(hintText: "Email"),
                   validator: (value) => value.isEmpty ? 'Enter email' : null,
                   onChanged: (value) {
                     setState(() {
@@ -47,6 +53,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  decoration: inputFieldDeco.copyWith(hintText: "Password"),
                   obscureText: true,
                   validator: (value) =>
                       value.length < 6 ? 'Password too short' : null,
@@ -65,17 +72,23 @@ class _SignInState extends State<SignIn> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
+                      setState(() => loading = true);
+
                       dynamic result =
                           await _auth.signInEmail(_email, _password);
+
                       if (result == null)
-                        print("rrrrrr");
-                      else {
-                        print(_email);
-                        print(_password);
-                      }
+                        setState(() {
+                          loading = false;
+                          _error = "Couldn't sign you in with these credential";
+                        });
                     }
                   },
-                )
+                ),
+                SizedBox(
+                  height: 30,
+                  child: Text(_error, style: TextStyle(color: Colors.red)),
+                ),
               ],
             ),
           )),

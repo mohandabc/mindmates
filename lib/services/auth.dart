@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mindmates/models/myuser.dart';
+import 'package:mindmates/services/database.dart';
 
 class Auth_service {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,7 +24,6 @@ class Auth_service {
       User user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print("error sign in");
       return null;
     }
   }
@@ -34,9 +34,12 @@ class Auth_service {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       MyUser user = _userFromFirebaseUser(result.user);
+
+      // create a record for the user profile
+      await DatabaseService(uid: user.uid)
+          .updateUserData("New Profile", 18, "Male");
       return user;
     } catch (e) {
-      print("couldn't register");
       return null;
     }
   }
@@ -49,7 +52,6 @@ class Auth_service {
       MyUser user = _userFromFirebaseUser(result.user);
       return user;
     } catch (e) {
-      print("couldn't register");
       return null;
     }
   }
