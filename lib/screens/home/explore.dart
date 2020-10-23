@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mindmates/screens/home/appBar.dart';
+import 'package:mindmates/services/auth.dart';
 import 'appBar.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -11,6 +12,7 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
   final formKey = GlobalKey<FormState>();
+  final Auth_service _auth = Auth_service();
   String _reponse1;
   final questions = <String>[];
   final responses = <String>[];
@@ -86,6 +88,12 @@ class _ExplorePageState extends State<ExplorePage> {
                       RaisedButton(
                         child: Text("Done"),
                         onPressed: _submit,
+                      ),
+                      RaisedButton(
+                        child: Text("Logout"),
+                        onPressed: () async {
+                          _auth.signOut();
+                        },
                       ),
                     ],
                   ),

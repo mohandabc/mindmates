@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mindmates/screens/authentification/sign_in.dart';
 
-class Autenticate extends StatefulWidget {
+class Authentificate extends StatefulWidget {
   @override
-  _AutenticateState createState() => _AutenticateState();
+  _AuthentificateState createState() => _AuthentificateState();
 }
 
-class _AutenticateState extends State<Autenticate> {
+class _AuthentificateState extends State<Authentificate> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: SignIn());
+    return Container(
+      child: SignIn(),
+    );
   }
 }
