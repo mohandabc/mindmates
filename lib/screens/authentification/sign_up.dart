@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mindmates/services/auth.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   final Auth_service _auth = Auth_service();
   String _email = '', _password = '';
@@ -20,14 +20,14 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign in'),
+        title: Text('Register'),
         actions: <Widget>[
           FlatButton.icon(
               icon: Icon(Icons.person),
               onPressed: () {
                 widget.toggleView();
               },
-              label: Text('Register'))
+              label: Text('Sign in'))
         ],
       ),
       body: Container(
@@ -60,19 +60,14 @@ class _SignInState extends State<SignIn> {
                 RaisedButton(
                   color: Colors.pink,
                   child: Text(
-                    "Login",
+                    "Register",
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result =
-                          await _auth.signInEmail(_email, _password);
-                      if (result == null)
-                        print("rrrrrr");
-                      else {
-                        print(_email);
-                        print(_password);
-                      }
+                    dynamic result =
+                        await _auth.registerEmail(_email, _password);
+                    if (result == null) {
+                      print("errrror");
                     }
                   },
                 )
