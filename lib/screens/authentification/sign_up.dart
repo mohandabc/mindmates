@@ -4,8 +4,8 @@ import 'package:mindmates/shered/constants.dart';
 import 'package:mindmates/shered/loading.dart';
 
 class Register extends StatefulWidget {
-  final Function toggleView;
-  Register({this.toggleView});
+  // final Function toggleView;
+  // Register({this.toggleView});
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -27,14 +27,14 @@ class _RegisterState extends State<Register> {
               backgroundColor: Colors.brown[400],
               elevation: 0.0,
               title: Text('Register'),
-              actions: <Widget>[
-                FlatButton.icon(
-                    icon: Icon(Icons.person),
-                    onPressed: () {
-                      widget.toggleView();
-                    },
-                    label: Text('Sign in'))
-              ],
+              // actions: <Widget>[
+              //   FlatButton.icon(
+              //       icon: Icon(Icons.person),
+              //       onPressed: () {
+              //         widget.toggleView();
+              //       },
+              //       label: Text('Sign in'))
+              // ],
             ),
             body: Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -76,8 +76,8 @@ class _RegisterState extends State<Register> {
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             setState(() => _loading = true);
-                            dynamic result =
-                                await _auth.registerEmail(_email, _password);
+                            dynamic result = await _auth.registerEmail(
+                                _email, _password, "", "", "");
                             if (result == null) {
                               setState(() {
                                 _loading = false;

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mindmates/screens/authentification/information_form.dart';
 import 'package:mindmates/services/auth.dart';
 import 'package:mindmates/shered/constants.dart';
 import 'package:mindmates/shered/loading.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  SignIn({this.toggleView});
   @override
   _SignInState createState() => _SignInState();
 }
@@ -21,19 +20,11 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     if (loading) return Loading();
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: Color(0xff0f0f0f),
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Color(0xff0f0f0f),
         elevation: 0.0,
         title: Text('Sign in'),
-        actions: <Widget>[
-          FlatButton.icon(
-              icon: Icon(Icons.person),
-              onPressed: () {
-                widget.toggleView();
-              },
-              label: Text('Register'))
-        ],
       ),
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -77,11 +68,15 @@ class _SignInState extends State<SignIn> {
                       dynamic result =
                           await _auth.signInEmail(_email, _password);
 
-                      if (result == null)
-                        setState(() {
-                          loading = false;
-                          _error = "Couldn't sign you in with these credential";
-                        });
+                      if (result == null) {
+                        // if couldn't sign in, then try register
+                        setState(() => loading = false);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FillName(_email, _password),
+                            ));
+                      }
                     }
                   },
                 ),

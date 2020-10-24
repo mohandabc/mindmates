@@ -29,7 +29,8 @@ class Auth_service {
   }
 
   // Register with email and password
-  Future registerEmail(String email, String password) async {
+  Future registerEmail(String email, String password, String name, String age,
+      String sexe) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -37,7 +38,7 @@ class Auth_service {
 
       // create a record for the user profile
       await DatabaseService(uid: user.uid)
-          .updateUserData("New Profile", 18, "Male");
+          .updateUserData(name, int.parse(age), sexe);
       return user;
     } catch (e) {
       return null;
