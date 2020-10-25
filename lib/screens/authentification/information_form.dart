@@ -31,6 +31,7 @@ class _FillNameState extends State<FillName> {
         title: Text('You\'re new? give us your name ?'),
       ),
       body: Container(
+        color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
@@ -45,6 +46,7 @@ class _FillNameState extends State<FillName> {
                 },
               ),
               RaisedButton(
+                color: Colors.pink,
                 child: Text("Next"),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
@@ -86,12 +88,13 @@ class _FillAgeState extends State<FillAge> {
         title: Text('How old are you ?'),
       ),
       body: Container(
+        color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextField(
-                decoration: new InputDecoration(labelText: "Age"),
+                decoration: inputFieldDeco.copyWith(hintText: "Age"),
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
@@ -101,6 +104,7 @@ class _FillAgeState extends State<FillAge> {
                 },
               ),
               RaisedButton(
+                color: Colors.pink,
                 child: Text("Next"),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
@@ -146,6 +150,7 @@ class _FillSexeState extends State<FillSexe> {
         title: Text('What is your gender ?'),
       ),
       body: Container(
+        color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
@@ -159,6 +164,7 @@ class _FillSexeState extends State<FillSexe> {
                 },
               ),
               RaisedButton(
+                color: Colors.pink,
                 child: Text("Next"),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
