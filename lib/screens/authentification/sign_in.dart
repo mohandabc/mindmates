@@ -34,6 +34,7 @@ class _SignInState extends State<SignIn> {
               children: <Widget>[
                 SizedBox(height: 20),
                 TextFormField(
+                  autofocus: true,
                   decoration: inputFieldDeco.copyWith(hintText: "Email"),
                   validator: (value) => value.isEmpty ? 'Enter email' : null,
                   onChanged: (value) {

@@ -31,12 +31,14 @@ class _FillNameState extends State<FillName> {
         title: Text('You\'re new? give us your name ?'),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
+                autofocus: true,
                 validator: (val) => val.length == 0 ? 'Input your name' : null,
                 decoration: inputFieldDeco.copyWith(hintText: "Name"),
                 onChanged: (val) {
@@ -77,7 +79,22 @@ class FillAge extends StatefulWidget {
 
 class _FillAgeState extends State<FillAge> {
   final _formKey = GlobalKey<FormState>();
-  String _age;
+  int _age;
+  DateTime _selectedDate = DateTime.now();
+
+  _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate, // Refer step 1
+      firstDate: DateTime(1920),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null)
+      setState(() {
+        _selectedDate = picked;
+        _age = DateTime.now().difference(_selectedDate).inDays ~/ 365;
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,20 +105,32 @@ class _FillAgeState extends State<FillAge> {
         title: Text('How old are you ?'),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              TextField(
-                decoration: inputFieldDeco.copyWith(hintText: "Age"),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                onChanged: (val) {
-                  _age = val;
-                },
+              Text("${_age.toString()}"),
+              Text(
+                "${_selectedDate.toLocal()}".split(' ')[0],
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              RaisedButton(
+                // onPressed: null,
+                onPressed: () => _selectDate(context), // Refer step 3
+                child: Text(
+                  'Select date',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                color: Colors.greenAccent,
               ),
               RaisedButton(
                 color: Colors.pink,
@@ -111,8 +140,8 @@ class _FillAgeState extends State<FillAge> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FillSexe(
-                              widget.email, widget.password, widget.name, _age),
+                          builder: (context) => FillSexe(widget.email,
+                              widget.password, widget.name, _age.toString()),
                         ));
                   }
                 },
@@ -140,6 +169,12 @@ class _FillSexeState extends State<FillSexe> {
   Auth_service _auth = Auth_service();
   bool loading = false;
 
+  _changedSexe(String val) {
+    setState(() {
+      _sexe = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loading) return Loading();
@@ -150,17 +185,35 @@ class _FillSexeState extends State<FillSexe> {
         title: Text('What is your gender ?'),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         color: Color(0xff0f0f0f),
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextFormField(
-                validator: (val) =>
-                    val != "M" && val != "F" ? 'Input your gender (M/F)' : null,
-                decoration: inputFieldDeco.copyWith(hintText: "Sexe"),
+              RadioListTile(
+                title: Text(
+                  "Male",
+                  style: TextStyle(color: Colors.white),
+                ),
+                value: "Male",
+                groupValue: _sexe,
+                activeColor: Colors.pink,
                 onChanged: (val) {
-                  _sexe = val;
+                  _changedSexe(val);
+                },
+              ),
+              RadioListTile(
+                title: Text(
+                  'Female',
+                  style: TextStyle(color: Colors.white),
+                ),
+                value: "Female",
+                groupValue: _sexe,
+                activeColor: Colors.pink,
+                onChanged: (val) {
+                  _changedSexe(val);
                 },
               ),
               RaisedButton(

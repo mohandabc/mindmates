@@ -14,4 +14,9 @@ class DatabaseService {
       'sexe': sexe,
     });
   }
+
+  // get profile stream
+  Stream<QuerySnapshot> get profile {
+    return profileCollection.snapshots();
+  }
 }

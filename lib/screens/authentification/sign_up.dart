@@ -44,6 +44,7 @@ class _RegisterState extends State<Register> {
                     children: <Widget>[
                       SizedBox(height: 20),
                       TextFormField(
+                        autofocus: true,
                         decoration: inputFieldDeco.copyWith(hintText: "Email"),
                         validator: (value) =>
                             value.isEmpty ? 'Enter email' : null,
