@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mindmates/models/myprofile.dart';
 
 class DatabaseService {
   final String uid;
@@ -15,8 +16,19 @@ class DatabaseService {
     });
   }
 
+  // profile from snapshot
+  List<MyProfile> _profileListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return MyProfile(
+        name: doc.get('name') ?? '',
+        age: doc.get('age') ?? 0,
+        sexe: doc.get('sexe') ?? '',
+      );
+    }).toList();
+  }
+
   // get profile stream
-  Stream<QuerySnapshot> get profile {
-    return profileCollection.snapshots();
+  Stream<List<MyProfile>> get profile {
+    return profileCollection.snapshots().map(_profileListFromSnapshot);
   }
 }

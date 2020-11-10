@@ -9,12 +9,6 @@ class MessagesPage extends StatefulWidget {
 class _MessagesPageState extends State<MessagesPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBar(
-        backgroundColor: Color(0xff0f0f0f),
-        context: context,
-        view: 3,
-      ),
-    );
+    return Scaffold();
   }
 }

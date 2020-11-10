@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mindmates/models/myuser.dart';
-import 'package:mindmates/screens/home/explore.dart';
 import 'package:mindmates/screens/authentification/authentificate.dart';
+import 'package:mindmates/screens/home/homeScreen.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
@@ -13,6 +13,6 @@ class Wrapper extends StatelessWidget {
     if (user == null)
       return Authentificate();
     else
-      return ExplorePage();
+      return HomeScreen(uid: user.uid);
   }
 }
